@@ -1,0 +1,45 @@
+{
+  "name": "nice-jokes",
+  "version": "1.0.0",
+  "description": "A funny bot to make the life more interesting to other people.",
+  "keywords": [
+    "bot",
+    "jokes",
+    "discord"
+  ],
+  "homepage": "https://github.com/RaynierPM/nice-jokes#readme",
+  "bugs": {
+    "url": "https://github.com/RaynierPM/nice-jokes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaynierPM/nice-jokes.git"
+  },
+  "license": "MIT",
+  "author": "RaynierPM",
+  "main": "index.js",
+  "scripts": {
+    "init": "cp .env.example .env",
+    "build": "rm ./dist -rf && tsc",
+    "start": "node --env-file=$ENVFILE ./dist/app.js",
+    "dev": "tsx --env-file=$ENVFILE --watch src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "@types/express": "^5.0.1",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.14.0",
+    "eslint": "^9.24.0",
+    "prettier": "^3.5.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.1"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "discord-interactions": "^4.1.1",
+    "express": "^5.1.0",
+    "morgan": "^1.10.0"
+  }
+}
