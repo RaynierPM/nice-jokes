@@ -1,11 +1,25 @@
-export const config = {
+import { getOrThrow } from "../common/env/getOrTrhow";
+
+type Configuration = {
   app: {
-    env: process.env.ENV ?? "local",
-    port: process.env.PORT || 3000,
+    env: string;
+    port: number;
+  };
+  discord: {
+    appId: string;
+    publicKey: string;
+    botKey: string;
+  };
+};
+
+export const config: Configuration = {
+  app: {
+    env: process.env.ENV || "local",
+    port: Number(process.env.PORT) || 3000,
   },
   discord: {
-    appId: process.env.APP_ID,
-    publicKey: process.env.PUBLIC_KEY,
-    botKey: process.env.BOT_KEY,
+    appId: getOrThrow(process.env, "APP_ID"),
+    publicKey: getOrThrow(process.env, "PUBLIC_KEY"),
+    botKey: getOrThrow(process.env, "BOT_KEY"),
   },
 };
