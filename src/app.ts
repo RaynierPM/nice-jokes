@@ -5,6 +5,8 @@ import morgan from "morgan";
 import { t } from "./i18n";
 import { scaffoldRoutes } from "./routes";
 
+console.log({ config });
+
 const app = express();
 
 app.use(json());

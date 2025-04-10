@@ -1,4 +1,13 @@
 {
-  "ping": "Pong! (Español)",
-  "users": "Usuarios"
+  "ping": "¡Pong! 🏓 (Español)",
+  "bot.PING.0": "¡PONG! ⚡ ¿Rápido, no?",
+  "bot.PING.1": "¿Alguien dijo ping? Pong llegó al party 🏓🎉",
+  "bot.PING.2": "¡Pong! Vivo para servir... literalmente. 🤖",
+  "bot.PING.3": "PING recibido. PONG entregado. Misión cumplida. 🛰️✅",
+  "bot.PING.4": "Tú pingueas, yo pongueo. El equilibrio ha sido restaurado. 🌌✨",
+  "bot.PING.5": "Hola, humano misterioso 👽✨",
+  "bot.PING.6": "No debería hablar con desconocidos... pero hola 👋😅",
+  "bot.PING.7": "¡Oh! ¡Un humano! ¡Holaaa <3! 🧡🙌",
+  "bot.PING.8": "UNGA UNGA 🐵🔧",
+  "bot.command_not_available": "Este comando no está disponible ahora mismo 🚫🤖"
 }
