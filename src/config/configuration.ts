@@ -1,4 +1,9 @@
 import { getOrThrow } from "../common/env/getOrTrhow";
+import dotenv from "dotenv";
+
+dotenv.config({
+  path: `./${process.env.ENVFILE}`,
+});
 
 type Configuration = {
   app: {

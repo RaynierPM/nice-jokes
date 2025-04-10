@@ -1,10 +1,19 @@
 import { verifyKeyMiddleware } from "discord-interactions";
 import { Router } from "express";
 import { config } from "../config/configuration";
+import { setDiscordLocale } from "../common/middlewares/getDiscordLocale";
+import { InteractionsController } from "../controllers/interaction-handler";
 
-export const DiscordRoutes = Router();
+export function createDiscordRoutes() {
+  const controller = new InteractionsController();
+  const router = Router();
 
-DiscordRoutes.post(
-  "/interactions",
-  verifyKeyMiddleware(config.discord.publicKey),
-);
+  router.post(
+    "/interactions",
+    verifyKeyMiddleware(config.discord.publicKey),
+    setDiscordLocale,
+    controller.handleInteractions,
+  );
+
+  return router;
+}

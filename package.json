@@ -21,9 +21,11 @@
   "scripts": {
     "init": "cp .env.example .env",
     "build": "rm ./dist -rf && tsc",
-    "start": "node --env-file=$ENVFILE ./dist/app.js",
-    "dev": "tsx --env-file=$ENVFILE --watch src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./dist/src/app.js",
+    "dev": "tsx --watch src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:commands": "node ./dist/scripts/installCommands.util.js",
+    "remove:commands": "node ./dist/scripts/removeCommands.util.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
@@ -38,8 +40,10 @@
     "typescript-eslint": "^8.29.1"
   },
   "dependencies": {
+    "axios": "^1.8.4",
     "body-parser": "^2.2.0",
     "discord-interactions": "^4.1.1",
+    "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "i18n": "^0.15.1",
     "morgan": "^1.10.0"
