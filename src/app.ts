@@ -4,6 +4,8 @@ import express from "express";
 import morgan from "morgan";
 import { t } from "./i18n";
 import { scaffoldRoutes } from "./routes";
+import { readFileSync } from "fs";
+import https from "https";
 
 console.log({ config });
 
@@ -16,7 +18,20 @@ app.use(t.init);
 
 // Routes
 scaffoldRoutes(app);
-
-app.listen(config.app.port, () => {
-  console.log("APP LISTENING PORT: " + config.app.port);
-});
+if (config.app.env === "local") {
+  const options = {
+    key: readFileSync(
+      "/etc/letsencrypt/live/rayniertest.qvitae.com.do/privkey.pem",
+    ),
+    cert: readFileSync(
+      "/etc/letsencrypt/live/rayniertest.qvitae.com.do/fullchain.pem",
+    ),
+  };
+  https.createServer(options, app).listen(config.app.port, () => {
+    console.log("APP LISTENING PORT: " + config.app.port);
+  });
+} else {
+  app.listen(config.app.port, () => {
+    console.log("APP LISTENING PORT: " + config.app.port);
+  });
+}
