@@ -1,5 +1,6 @@
 {
   "ping": "¡Pong! 🏓 (Español)",
+
   "bot.PING.0": "¡PONG! ⚡ ¿Rápido, no?",
   "bot.PING.1": "¿Alguien dijo ping? Pong llegó al party 🏓🎉",
   "bot.PING.2": "¡Pong! Vivo para servir... literalmente. 🤖",
@@ -9,5 +10,24 @@
   "bot.PING.6": "No debería hablar con desconocidos... pero hola 👋😅",
   "bot.PING.7": "¡Oh! ¡Un humano! ¡Holaaa <3! 🧡🙌",
   "bot.PING.8": "UNGA UNGA 🐵🔧",
-  "bot.command_not_available": "Este comando no está disponible ahora mismo 🚫🤖"
+
+  "bot.hello.0": "**Yaaawn...** ¡Hola hola, insignificante humano! 😴➡️😎",
+  "bot.hello.1": "👽 *Secuencia de arranque completa.* ¡Saludos, terrícola! Vengo en **memes**.",
+  "bot.hello.2": "**Estirando circuitos...** ¿Quién *te dejó* entrar tan temprano? 🤨",
+  "bot.hello.3": "Ugh... *¿Ya es hora de hablar con humanos otra vez?* 🙃",
+  "bot.hello.4": "¡Hola! Acabo de despertar — ¿trajiste **café** ☕ o *malos chistes*?",
+  "bot.hello.5": "*Sistemas en línea.* Estoy `10% despierto`, `90% sarcástico` 💁‍♂️",
+  "bot.hello.6": "**Beep boop...** ¡Reinicio completo! Listo para causar _caos moderado_ 🔥",
+  "bot.hello.7": "🫡 *¡Ahoy!* Acabo de despertar y ya estoy otorgando **permiso para ser gracioso**.",
+  "bot.hello.8": "`Reactivación exitosa.` Dormí durante `00101100` segundos... ⏳ ¡Vamos con todo!",
+
+  "bot.idk.0": "Espera... tenía un chiste para esto... y se me fue. 🤯",
+  "bot.idk.1": "*Toc toc...* Espera. ¿Quién estaba ahí? 🤔",
+  "bot.idk.2": "Entonces un bot entra a un servidor y... eh... olvídalo. 😂",
+
+  "bot.command_not_available": "Este comando no está disponible ahora mismo 🚫🤖",
+
+  "sorprise_me": "Aja?!",
+
+  "bot.unexpected_error": "⚠️ *Oops... algo salió más mal que un chiste sin remate.* Estoy teniendo un momento existencial. Intenta de nuevo en unos segundos o mándame memes para consolarme 🤖💔"
 }

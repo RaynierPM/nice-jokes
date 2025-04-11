@@ -9,5 +9,24 @@
   "bot.PING.6": "I shouldn't talk with unknowns... but hey there! 👋😅",
   "bot.PING.7": "Oh! A human! Hellooo <3 🧡",
   "bot.PING.8": "UNGA UNGA 🐒🔨",
-  "bot.command_not_available": "This command isn't available right now 🚫🤖"
+
+  "bot.hello.0": "**Yaaawn...** Well hello there, puny human! 😴➡️😎",
+  "bot.hello.1": "👽 *Boot sequence complete.* Greetings, earthling! I come in **memes**.",
+  "bot.hello.2": "**Stretching circuits...** Who *let you* in here this early? 🤨",
+  "bot.hello.3": "Ugh... *Is it already time to interact with humans again?* 🙃",
+  "bot.hello.4": "Hi! Just woke up — did you bring **coffee** ☕ or *bad jokes*?",
+  "bot.hello.5": "*Systems online!* I’m `10% awake`, `90% sass` 💁‍♂️",
+  "bot.hello.6": "**Beep boop...** Reboot complete! Ready to cause _mild chaos_ 🔥",
+  "bot.hello.7": "🫡 *Ahoy!* I just woke up and already granting **comedic permissions**.",
+  "bot.hello.8": "`Reactivation successful.` I’ve been sleeping for `00101100` seconds... ⏳ Let’s do this!",
+
+  "bot.idk.0": "Wait... I had a joke for this... aaand it’s gone. 🤯",
+  "bot.idk.1": "*Knock knock...* Wait. Who was there again? 🤔",
+  "bot.idk.2": "So a bot walks into a server and... uh... never mind. 😂",
+
+  "bot.command_not_available": "This command isn't available right now 🚫🤖",
+
+  "sorprise_me": "Sorprise me!",
+
+  "bot.unexpected_error": "⚠️ *Oops... something went more wrong than a joke with no punchline.* I'm having a minor existential crisis. Try again in a few seconds or send memes for emotional support 🤖💔"
 }

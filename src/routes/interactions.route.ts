@@ -12,7 +12,9 @@ export function createDiscordRoutes() {
     "/interactions",
     verifyKeyMiddleware(config.discord.publicKey),
     setDiscordLocale,
-    controller.handleInteractions,
+    (req, res, next) => {
+      controller.handleInteractions(req, res).catch(next);
+    },
   );
 
   return router;

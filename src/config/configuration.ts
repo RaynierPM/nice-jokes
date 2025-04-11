@@ -20,6 +20,7 @@ type Configuration = {
   bot: {
     available_salutations: number;
     available_pings: number;
+    available_idks: number;
   };
 };
 
@@ -36,5 +37,6 @@ export const config: Configuration = {
   bot: {
     available_salutations: getKeyLengths(en, "bot.hello.*"),
     available_pings: getKeyLengths(en, "bot.PING.*"),
+    available_idks: getKeyLengths(en, "bot.idk.*"),
   },
 };

@@ -1,4 +1,4 @@
-import { InteractionType } from "discord-interactions";
+import { InteractionType, MessageComponentTypes } from "discord-interactions";
 import { CommandTypes } from "../commons/CommandsTypes.enum";
 
 enum DiscordContext {
@@ -11,7 +11,7 @@ type User = {
   id: unknown;
   username: string;
   bot?: boolean;
-  locale: string;
+  locale?: string;
   email: string;
 };
 
@@ -24,20 +24,59 @@ type Message = {
   type: number;
 };
 
-type InteractionData = {
+type InteractionAppCommandData = {
   id: unknown;
   name: string;
   type: CommandTypes;
   guild_id: unknown;
 };
 
-export type DiscordInteraction = {
+type InteractionMessageData = {
+  custom_id: string;
+  component_type: MessageComponentTypes;
+  values: unknown[];
+};
+
+type Role = {
   id: unknown;
-  type: InteractionType;
+  name: string;
+  color: number;
+};
+
+type GuildMember = {
+  user: User;
+  deat: boolean;
+  mute: boolean;
+  nick?: string;
+  roles: Role[];
+};
+
+type DiscordInteractionBase = {
+  id: unknown;
   context: DiscordContext;
   token: string;
-  user: User;
-  message: Message;
-  locale: string;
-  data: InteractionData;
+  member: GuildMember;
+  user?: User;
+  locale?: string;
 };
+
+export type DiscordInteractionMessage = DiscordInteractionBase & {
+  type: Exclude<
+    Exclude<InteractionType, InteractionType.APPLICATION_COMMAND>,
+    InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE
+  >;
+  message: Message;
+  data: InteractionMessageData;
+};
+
+export type DiscordInteractionCommand = DiscordInteractionBase & {
+  type:
+    | InteractionType.APPLICATION_COMMAND
+    | InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE;
+  message: undefined;
+  data: InteractionAppCommandData;
+};
+
+export type DiscordInteraction =
+  | DiscordInteractionMessage
+  | DiscordInteractionCommand;
