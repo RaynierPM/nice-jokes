@@ -7,34 +7,32 @@ import {
 } from "../discord/types/applicationCommand";
 import { availableComands } from "../discord/commands/availableCommands.enum";
 import { RandomAnswers } from "../common/utils/randomAnswers";
-import { getRandomJoke } from "../jokes";
+import { getRandomJoke, translateJoke } from "../jokes";
 import { BotResponses } from "../common/responses/defaults";
 import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedErro";
 import { removeBotMsg } from "../discord/commons/removeBotMessage";
 import { updateBotMessage } from "../discord/commons/updateBotMessage";
+import { isEnglishLocale } from "../common/utils/isEnglishLocal";
 
 export class InteractionsController
   implements Controller<InteractionsController>
 {
-  private readonly jokesRecords: Record<string, Joke> = {};
+  private readonly pendingJokes: Record<string, Joke> = {};
 
-  handleInteractions = async (req: Request, res: Response) => {
+  async handleInteractions(req: Request, res: Response) {
     const { type } = req.body;
 
     switch (type as InteractionType) {
       // case InteractionType.PING:
       //   break;
       case InteractionType.APPLICATION_COMMAND:
-        await this.handleAppCommand(req.body, res);
-        break;
+        return await this.handleAppCommand(req.body, res);
       case InteractionType.MESSAGE_COMPONENT:
-        this.handleMessageComponent(req.body, res);
-        break;
+        return await this.handleMessageComponent(req.body, res);
       default:
-        BotResponses.NotAvailableCommand(res);
-        break;
+        return BotResponses.NotAvailableCommand(res);
     }
-  };
+  }
 
   private async handleAppCommand(
     interaction: DiscordInteraction,
@@ -56,13 +54,13 @@ export class InteractionsController
         break;
       case availableComands.JOKE:
         try {
-          const { data: joke } = await getRandomJoke();
-          this.saveJokePunchLine({ joke, interaction });
+          const joke = await getRandomJoke("en");
+          console.log({ joke });
+          this.savePendingJoke({ joke, interaction });
           BotResponses.joke(res, { interaction, joke });
         } catch {
-          BotResponses.unexpectedErrorMsg(res);
+          throw new DiscordUnexpectedError();
         }
-
         break;
       case availableComands.WAKE_UP:
         res.json({
@@ -100,19 +98,19 @@ export class InteractionsController
     }
   }
 
-  private saveJokePunchLine({
+  private savePendingJoke({
     joke,
     interaction,
   }: {
     joke: Joke;
     interaction: DiscordInteraction;
   }) {
-    this.jokesRecords[interaction.id as string] = joke;
+    this.pendingJokes[interaction.id as string] = joke;
   }
 
   private getPendingJoke(id: string) {
-    const joke = this.jokesRecords[id];
-    if (joke) delete this.jokesRecords[id];
+    const joke = this.pendingJokes[id];
+    if (joke) delete this.pendingJokes[id];
     return joke;
   }
 
@@ -127,8 +125,6 @@ export class InteractionsController
     updateBotMessage(
       { messageId: interaction.message.id as string, token: interaction.token },
       newMessage,
-    )
-      .catch(console.log)
-      .then(console.log);
+    ).catch(console.log);
   }
 }

@@ -6,6 +6,7 @@ import { t } from "./i18n";
 import { scaffoldRoutes } from "./routes";
 import { readFileSync } from "fs";
 import https from "https";
+import { handleDiscordError } from "./common/middlewares/discordErrorHandler";
 
 console.log({ config });
 
@@ -18,6 +19,10 @@ app.use(t.init);
 
 // Routes
 scaffoldRoutes(app);
+
+// Discord error handler
+app.use(handleDiscordError);
+
 if (config.app.env === "local") {
   const options = {
     key: readFileSync(

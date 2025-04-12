@@ -3,6 +3,7 @@ import { Router } from "express";
 import { config } from "../config/configuration";
 import { setDiscordLocale } from "../common/middlewares/getDiscordLocale";
 import { InteractionsController } from "../controllers/interaction-handler";
+import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedErro";
 
 export function createDiscordRoutes() {
   const controller = new InteractionsController();
@@ -12,8 +13,12 @@ export function createDiscordRoutes() {
     "/interactions",
     verifyKeyMiddleware(config.discord.publicKey),
     setDiscordLocale,
-    (req, res, next) => {
-      controller.handleInteractions(req, res).catch(next);
+    async (req, res, next) => {
+      try {
+        await controller.handleInteractions(req, res);
+      } catch (err) {
+        next(err);
+      }
     },
   );
 

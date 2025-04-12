@@ -1,32 +1,33 @@
 {
   "ping": "Pong! 🏓 (English)",
-  "bot.PING.0": "PONG! ⚡ That was fast, right?",
-  "bot.PING.1": "Did someone say ping? Pong’s in da house 🏓",
-  "bot.PING.2": "Pong! I live to serve... literally. 🤖",
-  "bot.PING.3": "PING received. PONG delivered. Mission complete. 🛰️",
-  "bot.PING.4": "You pinged, I ponged. Balance has been restored. 🌌",
-  "bot.PING.5": "Hi, mysterious human 👀✨",
-  "bot.PING.6": "I shouldn't talk with unknowns... but hey there! 👋😅",
-  "bot.PING.7": "Oh! A human! Hellooo <3 🧡",
-  "bot.PING.8": "UNGA UNGA 🐒🔨",
 
-  "bot.hello.0": "**Yaaawn...** Well hello there, puny human! 😴➡️😎",
-  "bot.hello.1": "👽 *Boot sequence complete.* Greetings, earthling! I come in **memes**.",
-  "bot.hello.2": "**Stretching circuits...** Who *let you* in here this early? 🤨",
-  "bot.hello.3": "Ugh... *Is it already time to interact with humans again?* 🙃",
-  "bot.hello.4": "Hi! Just woke up — did you bring **coffee** ☕ or *bad jokes*?",
-  "bot.hello.5": "*Systems online!* I’m `10% awake`, `90% sass` 💁‍♂️",
-  "bot.hello.6": "**Beep boop...** Reboot complete! Ready to cause _mild chaos_ 🔥",
-  "bot.hello.7": "🫡 *Ahoy!* I just woke up and already granting **comedic permissions**.",
-  "bot.hello.8": "`Reactivation successful.` I’ve been sleeping for `00101100` seconds... ⏳ Let’s do this!",
+  "bot.PING.0": "PONG! ⚡ Did I impress you with the speed?",
+  "bot.PING.1": "Ping? Pong just joined the party 🏓🎊",
+  "bot.PING.2": "Pong at your service. Always ready 🤖",
+  "bot.PING.3": "PING received. PONG delivered. Mission accomplished 🛰️✅",
+  "bot.PING.4": "You ping, I pong. Balance restored 🌌✨",
+  "bot.PING.5": "Greetings, curious human 👽✨",
+  "bot.PING.6": "I’m not supposed to talk to strangers… but hey there 👋😉",
+  "bot.PING.7": "Oh! A human presence! Hello! 🧡🙌",
+  "bot.PING.8": "Greetings... entering primitive mode 🐵🔧",
 
-  "bot.idk.0": "Wait... I had a joke for this... aaand it’s gone. 🤯",
-  "bot.idk.1": "*Knock knock...* Wait. Who was there again? 🤔",
-  "bot.idk.2": "So a bot walks into a server and... uh... never mind. 😂",
+  "bot.hello.0": "**Yaaawn...** Oh, hey. You woke me up 😴➡️😎",
+  "bot.hello.1": "👽 *Startup complete.* Hello, I bring memes.",
+  "bot.hello.2": "**Stretching circuits...** Is it that early already? 🤨",
+  "bot.hello.3": "Ugh... time to talk to humans again? 🙃",
+  "bot.hello.4": "Good morning! Did you bring coffee or at least a story? ☕",
+  "bot.hello.5": "*Systems online.* 10% awake, 90% sarcastic 💁‍♂️",
+  "bot.hello.6": "**Beep boop...** Reboot complete. Ready for mild chaos 🔥",
+  "bot.hello.7": "🫡 *Ahoy!* Cleared for humor. Let's do this.",
+  "bot.hello.8": "`Reactivation successful.` Slept just enough ⏳ Let's roll!",
+
+  "bot.idk.0": "Wait... I had the perfect joke... and it’s gone 🤯",
+  "bot.idk.1": "*Knock knock...* wait... who was there again? 🤔",
+  "bot.idk.2": "So a bot walks into a server and... eh, never mind 😂",
 
   "bot.command_not_available": "This command isn't available right now 🚫🤖",
 
-  "sorprise_me": "Sorprise me!",
+  "sorprise_me": "Surprise me",
 
-  "bot.unexpected_error": "⚠️ *Oops... something went more wrong than a joke with no punchline.* I'm having a minor existential crisis. Try again in a few seconds or send memes for emotional support 🤖💔"
+  "bot.unexpected_error": "⚠️ Oh, delightful. Something broke. Again. How *utterly* unexpected. 🤷‍♂️"
 }
