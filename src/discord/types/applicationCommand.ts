@@ -1,7 +1,7 @@
 import { InteractionType, MessageComponentTypes } from "discord-interactions";
 import { CommandTypes } from "../commons/CommandsTypes.enum";
 
-enum DiscordContext {
+export enum DiscordContext {
   GUILD = 0,
   BOT_DM,
   PRIVATE_CHANNEL,
@@ -58,6 +58,7 @@ type DiscordInteractionBase = {
   member: GuildMember;
   user?: User;
   locale?: string;
+  guild_id?: unknown;
 };
 
 export type DiscordInteractionMessage = DiscordInteractionBase & {

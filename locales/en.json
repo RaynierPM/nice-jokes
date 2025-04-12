@@ -27,6 +27,8 @@
 
   "bot.command_not_available": "This command isn't available right now 🚫🤖",
 
+  "bot.already_awake": "I'm already awake! No need to wake me up again 😄",
+
   "sorprise_me": "Surprise me",
 
   "bot.unexpected_error": "⚠️ Oh, delightful. Something broke. Again. How *utterly* unexpected. 🤷‍♂️"

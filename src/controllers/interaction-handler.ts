@@ -2,22 +2,23 @@ import { Request, Response } from "express";
 import { Controller } from "../common/interfaces";
 import { InteractionType, InteractionResponseType } from "discord-interactions";
 import {
+  DiscordContext,
   DiscordInteraction,
   DiscordInteractionMessage,
 } from "../discord/types/applicationCommand";
 import { availableComands } from "../discord/commands/availableCommands.enum";
 import { RandomAnswers } from "../common/utils/randomAnswers";
-import { getRandomJoke, translateJoke } from "../jokes";
+import { getRandomJoke } from "../jokes";
 import { BotResponses } from "../common/responses/defaults";
 import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedErro";
-import { removeBotMsg } from "../discord/commons/removeBotMessage";
 import { updateBotMessage } from "../discord/commons/updateBotMessage";
-import { isEnglishLocale } from "../common/utils/isEnglishLocal";
+import moment, { Moment } from "moment";
 
 export class InteractionsController
   implements Controller<InteractionsController>
 {
   private readonly pendingJokes: Record<string, Joke> = {};
+  private lastWakeUp: Record<string, Moment> = {};
 
   async handleInteractions(req: Request, res: Response) {
     const { type } = req.body;
@@ -55,7 +56,6 @@ export class InteractionsController
       case availableComands.JOKE:
         try {
           const joke = await getRandomJoke("en");
-          console.log({ joke });
           this.savePendingJoke({ joke, interaction });
           BotResponses.joke(res, { interaction, joke });
         } catch {
@@ -63,14 +63,10 @@ export class InteractionsController
         }
         break;
       case availableComands.WAKE_UP:
-        res.json({
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            content: res.__(RandomAnswers.GET_RANDOM_WOKE_UP_KEY()),
-          },
-        });
+        this.handleWakeUp(interaction, res);
         break;
     }
+    this.setAwakeTime(interaction);
   }
 
   private async handleMessageComponent(
@@ -117,6 +113,41 @@ export class InteractionsController
   // private removeChatMessage(interaction: DiscordInteractionMessage) {
   //   removeBotMsg(interaction.token, interaction.message.id).catch(console.log);
   // }
+
+  private handleWakeUp(interaction: DiscordInteraction, res: Response) {
+    const lastWakeUp = this.getAwakeTime(interaction);
+    if (lastWakeUp && moment().diff(lastWakeUp, "minute") < 30) {
+      res.json({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: res.__("bot.already_awake"),
+        },
+      });
+    } else {
+      res.json({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: res.__(RandomAnswers.GET_RANDOM_WOKE_UP_KEY()),
+        },
+      });
+    }
+  }
+
+  private setAwakeTime(interaction: DiscordInteraction) {
+    const id: string = this.getAwakeId(interaction);
+    this.lastWakeUp[id] = moment();
+  }
+
+  private getAwakeTime(interaction: DiscordInteraction) {
+    const id: string = this.getAwakeId(interaction);
+    return this.lastWakeUp[id];
+  }
+
+  private getAwakeId(interaction: DiscordInteraction) {
+    return interaction.context === DiscordContext.BOT_DM
+      ? (interaction.user?.id as string)
+      : (interaction.guild_id as string);
+  }
 
   private updateChatMessage(
     interaction: DiscordInteractionMessage,
