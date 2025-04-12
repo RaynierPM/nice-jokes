@@ -11,6 +11,7 @@ type Configuration = {
   app: {
     env: string;
     port: number;
+    https: boolean;
   };
   discord: {
     appId: string;
@@ -22,12 +23,17 @@ type Configuration = {
     available_pings: number;
     available_idks: number;
   };
+  https: {
+    key: string | undefined;
+    cert: string | undefined;
+  };
 };
 
 export const config: Configuration = {
   app: {
     env: process.env.ENV || "local",
     port: Number(process.env.PORT) || 3000,
+    https: Boolean(Number(process.env.HTTPS)),
   },
   discord: {
     appId: getOrThrow(process.env, "APP_ID"),
@@ -38,5 +44,9 @@ export const config: Configuration = {
     available_salutations: getKeyLengths(en, "bot.hello.*"),
     available_pings: getKeyLengths(en, "bot.PING.*"),
     available_idks: getKeyLengths(en, "bot.idk.*"),
+  },
+  https: {
+    cert: process.env.HTTPS_CERT_PATH,
+    key: process.env.HTTPS_KEY_PATH,
   },
 };

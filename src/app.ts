@@ -23,14 +23,10 @@ scaffoldRoutes(app);
 // Discord error handler
 app.use(handleDiscordError);
 
-if (config.app.env === "local") {
+if (config.app.https && config.https.cert && config.https.key) {
   const options = {
-    key: readFileSync(
-      "/etc/letsencrypt/live/rayniertest.qvitae.com.do/privkey.pem",
-    ),
-    cert: readFileSync(
-      "/etc/letsencrypt/live/rayniertest.qvitae.com.do/fullchain.pem",
-    ),
+    key: readFileSync(config.https.key),
+    cert: readFileSync(config.https.cert),
   };
   https.createServer(options, app).listen(config.app.port, () => {
     console.log("APP LISTENING PORT: " + config.app.port);
