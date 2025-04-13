@@ -5,6 +5,7 @@ import {
 import { Response } from "express";
 import { DiscordInteraction } from "../../discord/types/applicationCommand";
 import { RandomAnswers } from "../utils/randomAnswers";
+import { HttpStatusCode } from "axios";
 
 export abstract class BotResponses {
   static NotAvailableCommand(res: Response): void {
@@ -60,7 +61,7 @@ export abstract class BotResponses {
   }
 
   static unexpectedErrorMsg(res: Response) {
-    res.json({
+    res.status(HttpStatusCode.InternalServerError).json({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
         content: res.__("bot.unexpected_error"),

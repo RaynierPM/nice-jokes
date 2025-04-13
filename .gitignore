@@ -2,6 +2,7 @@
 node_modules/
 dist/
 build/
+.ssl/
 
 #== Enviroment variables
 .env.*

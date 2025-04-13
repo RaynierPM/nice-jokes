@@ -46,7 +46,7 @@ export const config: Configuration = {
     available_idks: getKeyLengths(en, "bot.idk.*"),
   },
   https: {
-    cert: process.env.HTTPS_CERT_PATH,
-    key: process.env.HTTPS_KEY_PATH,
+    cert: process.env.HTTPS_CERT_NAME,
+    key: process.env.HTTPS_KEY_NAME,
   },
 };
