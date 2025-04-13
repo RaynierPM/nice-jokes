@@ -9,7 +9,7 @@ import {
 import { availableComands } from "../discord/commands/availableCommands.enum";
 import { RandomAnswers } from "../common/utils/randomAnswers";
 import { getRandomJoke } from "../jokes";
-import { BotResponses } from "../common/responses/defaults";
+import { BotResponses } from "../common/responses/bot/defaults";
 import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedErro";
 import { updateBotMessage } from "../discord/commons/updateBotMessage";
 import moment, { Moment } from "moment";

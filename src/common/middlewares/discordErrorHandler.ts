@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { BotResponses } from "../responses/defaults";
+import { BotResponses } from "../responses/bot/defaults";
 import { DiscordUnexpectedError } from "../../errors/discord/discordUnexpectedErro";
 
 export function handleDiscordError(

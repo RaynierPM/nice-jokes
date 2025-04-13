@@ -3,8 +3,8 @@ import {
   MessageComponentTypes,
 } from "discord-interactions";
 import { Response } from "express";
-import { DiscordInteraction } from "../../discord/types/applicationCommand";
-import { RandomAnswers } from "../utils/randomAnswers";
+import { DiscordInteraction } from "../../../discord/types/applicationCommand";
+import { RandomAnswers } from "../../utils/randomAnswers";
 import { HttpStatusCode } from "axios";
 
 export abstract class BotResponses {
