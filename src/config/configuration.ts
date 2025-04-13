@@ -2,9 +2,10 @@ import { getOrThrow } from "../common/env/getOrTrhow";
 import dotenv from "dotenv";
 import en from "../../locales/en.json";
 import { getKeyLengths } from "../common/utils/keyLengths";
+import path from "path";
 
 dotenv.config({
-  path: `./${process.env.ENVFILE}`,
+  path: path.join(process.cwd(), process.env.ENVFILE || ""),
 });
 
 type Configuration = {
