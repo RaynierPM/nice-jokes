@@ -1,4 +1,4 @@
-import { json } from "body-parser";
+import { json, raw } from "body-parser";
 import { config } from "./config/configuration";
 import express from "express";
 import morgan from "morgan";
@@ -7,12 +7,12 @@ import { scaffoldRoutes } from "./routes";
 import { readFileSync } from "fs";
 import https from "https";
 import { handleDiscordError } from "./common/middlewares/discordErrorHandler";
-
-console.log({ config });
+import path from "path";
 
 const app = express();
 
 app.use(json());
+app.use(raw());
 app.use(morgan(config.app.env !== "prod" ? "dev" : "combined"));
 
 app.use(t.init);
@@ -25,8 +25,8 @@ app.use(handleDiscordError);
 
 if (config.app.https && config.https.cert && config.https.key) {
   const options = {
-    key: readFileSync(config.https.key),
-    cert: readFileSync(config.https.cert),
+    key: readFileSync(path.join(".ssl/", config.https.key)),
+    cert: readFileSync(path.join(".ssl/", config.https.cert)),
   };
   https.createServer(options, app).listen(config.app.port, () => {
     console.log("APP LISTENING PORT: " + config.app.port);
