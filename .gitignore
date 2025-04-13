@@ -4,7 +4,7 @@ dist/
 build/
 .ssl/
 
-#== Enviroment variables
+#== environment variables
 .env.*
 .env
 

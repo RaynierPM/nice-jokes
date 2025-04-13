@@ -4,7 +4,7 @@
 
 ```bash
 # Important note
-# To use the initialization codes on local development use first ENVFILE inline enviroment variable with the name of .env.file
+# To use the initialization codes on local development use first ENVFILE inline environment variable with the name of .env.file
 # For example:
 #
 # ENVFILE=.env.local npm run start (or npm run dev) --- Having .env.local on root project directory
