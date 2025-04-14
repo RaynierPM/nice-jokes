@@ -10,7 +10,7 @@ import { availableComands } from "../discord/commands/availableCommands.enum";
 import { RandomAnswers } from "../common/utils/randomAnswers";
 import { getRandomJoke } from "../jokes";
 import { BotResponses } from "../common/responses/bot/defaults";
-import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedErro";
+import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedError";
 import { updateBotMessage } from "../discord/commons/updateBotMessage";
 import moment, { Moment } from "moment";
 
@@ -54,13 +54,9 @@ export class InteractionsController
         });
         break;
       case availableComands.JOKE:
-        try {
-          const joke = await getRandomJoke("en");
-          this.savePendingJoke({ joke, interaction });
-          BotResponses.joke(res, { interaction, joke });
-        } catch {
-          throw new DiscordUnexpectedError();
-        }
+        const joke = await getRandomJoke("en");
+        this.savePendingJoke({ joke, interaction });
+        BotResponses.joke(res, { interaction, joke });
         break;
       case availableComands.WAKE_UP:
         this.handleWakeUp(interaction, res);

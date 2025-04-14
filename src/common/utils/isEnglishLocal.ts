@@ -1,5 +1,5 @@
 const englishRegExp = /^en(.*)$/gi;
 
 export function isEnglishLocale(locale: string) {
-  return englishRegExp.test(locale);
+  return locale.match(englishRegExp);
 }

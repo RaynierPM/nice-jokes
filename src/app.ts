@@ -8,6 +8,7 @@ import { readFileSync } from "fs";
 import https from "https";
 import { handleDiscordError } from "./common/middlewares/discordErrorHandler";
 import path from "path";
+import { unexpectedErrorHandler } from "./common/middlewares/unexpectedErrorHandler";
 
 const app = express();
 
@@ -22,6 +23,7 @@ scaffoldRoutes(app);
 
 // Discord error handler
 app.use(handleDiscordError);
+app.use(unexpectedErrorHandler);
 
 if (config.app.https && config.https.cert && config.https.key) {
   const options = {

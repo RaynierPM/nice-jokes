@@ -3,7 +3,8 @@ import { Router } from "express";
 import { config } from "../config/configuration";
 import { setDiscordLocale } from "../common/middlewares/getDiscordLocale";
 import { InteractionsController } from "../controllers/interaction-handler";
-import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedErro";
+import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedError";
+import { AxiosError } from "axios";
 
 export function createDiscordRoutes() {
   const controller = new InteractionsController();
@@ -17,7 +18,10 @@ export function createDiscordRoutes() {
       try {
         await controller.handleInteractions(req, res);
       } catch (err) {
-        next(err);
+        if (err instanceof AxiosError) {
+          console.log(err.response?.data);
+        }
+        next(new DiscordUnexpectedError(err));
       }
     },
   );
