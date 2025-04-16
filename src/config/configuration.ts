@@ -28,6 +28,9 @@ type Configuration = {
     key: string | undefined;
     cert: string | undefined;
   };
+  translations: {
+    translationAPIURL: string;
+  };
 };
 
 export const config: Configuration = {
@@ -49,5 +52,8 @@ export const config: Configuration = {
   https: {
     cert: process.env.HTTPS_CERT_NAME,
     key: process.env.HTTPS_KEY_NAME,
+  },
+  translations: {
+    translationAPIURL: getOrThrow(process.env, "TRANSLATE_API_URL"),
   },
 };

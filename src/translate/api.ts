@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { config } from "../config/configuration";
 
 const translationAxios = axios.create({
-  baseURL: "https://libretranslate.com",
+  baseURL: config.translations.translationAPIURL,
   method: "GET",
   headers: {
     "Content-Type": "application/json",
