@@ -1,4 +1,4 @@
-import { json, raw } from "body-parser";
+import { raw } from "body-parser";
 import { config } from "./config/configuration";
 import express from "express";
 import morgan from "morgan";
@@ -9,10 +9,10 @@ import https from "https";
 import { handleDiscordError } from "./common/middlewares/discordErrorHandler";
 import path from "path";
 import { unexpectedErrorHandler } from "./common/middlewares/unexpectedErrorHandler";
+import { RedisManager } from "./redis";
 
 const app = express();
 
-app.use(json());
 app.use(raw());
 app.use(morgan(config.app.env !== "prod" ? "dev" : "combined"));
 
@@ -25,6 +25,13 @@ scaffoldRoutes(app);
 app.use(handleDiscordError);
 app.use(unexpectedErrorHandler);
 
+// Check if translations are available
+fetch(config.translations.translationAPIURL)
+  .then(() => (config.translations.isAvailable = true))
+  .catch(() => (config.translations.isAvailable = false));
+
+RedisManager.init();
+
 if (config.app.https && config.https.cert && config.https.key) {
   const options = {
     key: readFileSync(path.join(process.cwd(), ".ssl/", config.https.key)),
@@ -32,9 +39,11 @@ if (config.app.https && config.https.cert && config.https.key) {
   };
   https.createServer(options, app).listen(config.app.port, () => {
     console.log("APP LISTENING PORT: " + config.app.port);
+    console.log("With HTTPS built-in");
   });
 } else {
   app.listen(config.app.port, () => {
     console.log("APP LISTENING PORT: " + config.app.port);
+    console.log("Without HTTPS built-in");
   });
 }

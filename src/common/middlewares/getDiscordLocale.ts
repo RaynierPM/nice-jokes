@@ -6,9 +6,6 @@ export function setDiscordLocale(
   next: NextFunction,
 ) {
   const { locale } = req.body;
-
-  console.log({ locale });
-
   if (locale) {
     res.setLocale(locale);
   }

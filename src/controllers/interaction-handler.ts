@@ -12,13 +12,12 @@ import { getRandomJoke } from "../jokes";
 import { BotResponses } from "../common/responses/bot/defaults";
 import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedError";
 import { updateBotMessage } from "../discord/commons/updateBotMessage";
-import moment, { Moment } from "moment";
+import { RedisManager } from "../redis";
 
 export class InteractionsController
   implements Controller<InteractionsController>
 {
-  private readonly pendingJokes: Record<string, Joke> = {};
-  private lastWakeUp: Record<string, Moment> = {};
+  private redisClient = RedisManager.getInstance().redisClient;
 
   async handleInteractions(req: Request, res: Response) {
     const { type } = req.body;
@@ -55,14 +54,14 @@ export class InteractionsController
         break;
       case availableComands.JOKE:
         const joke = await getRandomJoke("en");
-        this.savePendingJoke({ joke, interaction });
+        await this.savePendingJoke({ joke, interaction });
         BotResponses.joke(res, { interaction, joke });
         break;
       case availableComands.WAKE_UP:
-        this.handleWakeUp(interaction, res);
+        await this.handleWakeUp(interaction, res);
         break;
     }
-    this.setAwakeTime(interaction);
+    await this.setAwakeFlag(interaction);
   }
 
   private async handleMessageComponent(
@@ -76,7 +75,7 @@ export class InteractionsController
 
     if (custom_id.startsWith("joke_punchline_")) {
       const jokeId = custom_id.replace("joke_punchline_", "");
-      const joke = this.getPendingJoke(jokeId);
+      const joke = await this.getPendingJoke(jokeId);
       if (joke) {
         this.updateChatMessage(interaction, {
           type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -90,29 +89,32 @@ export class InteractionsController
     }
   }
 
-  private savePendingJoke({
+  private async savePendingJoke({
     joke,
     interaction,
   }: {
     joke: Joke;
     interaction: DiscordInteraction;
   }) {
-    this.pendingJokes[interaction.id as string] = joke;
+    await this.redisClient.set(interaction.id as string, joke);
   }
 
-  private getPendingJoke(id: string) {
-    const joke = this.pendingJokes[id];
-    if (joke) delete this.pendingJokes[id];
-    return joke;
+  private async getPendingJoke(id: string): Promise<Joke | null> {
+    const joke = await this.redisClient.get(id);
+    if (joke) {
+      await this.redisClient.del(id);
+      return JSON.parse(joke);
+    }
+    return null;
   }
 
   // private removeChatMessage(interaction: DiscordInteractionMessage) {
   //   removeBotMsg(interaction.token, interaction.message.id).catch(console.log);
   // }
 
-  private handleWakeUp(interaction: DiscordInteraction, res: Response) {
-    const lastWakeUp = this.getAwakeTime(interaction);
-    if (lastWakeUp && moment().diff(lastWakeUp, "minute") < 30) {
+  private async handleWakeUp(interaction: DiscordInteraction, res: Response) {
+    const isAwaken = await this.getAwakeTime(interaction);
+    if (isAwaken) {
       res.json({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
@@ -129,14 +131,15 @@ export class InteractionsController
     }
   }
 
-  private setAwakeTime(interaction: DiscordInteraction) {
+  private async setAwakeFlag(interaction: DiscordInteraction) {
     const id: string = this.getAwakeId(interaction);
-    this.lastWakeUp[id] = moment();
+    await this.redisClient.set(id, "true", { TTL: 30 });
   }
 
-  private getAwakeTime(interaction: DiscordInteraction) {
+  private async getAwakeTime(interaction: DiscordInteraction) {
     const id: string = this.getAwakeId(interaction);
-    return this.lastWakeUp[id];
+    const isAwaken = Boolean(await this.redisClient.get(id));
+    return isAwaken;
   }
 
   private getAwakeId(interaction: DiscordInteraction) {

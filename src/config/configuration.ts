@@ -30,6 +30,15 @@ type Configuration = {
   };
   translations: {
     translationAPIURL: string;
+    isAvailable?: boolean;
+  };
+  redis: {
+    host: string;
+    port: number;
+    ttl: number;
+  };
+  giphy: {
+    apiKey: string;
   };
 };
 
@@ -40,9 +49,9 @@ export const config: Configuration = {
     https: Boolean(Number(process.env.HTTPS)),
   },
   discord: {
-    appId: getOrThrow(process.env, "APP_ID"),
-    publicKey: getOrThrow(process.env, "PUBLIC_KEY"),
-    botKey: getOrThrow(process.env, "BOT_KEY"),
+    appId: getOrThrow("APP_ID"),
+    publicKey: getOrThrow("PUBLIC_KEY"),
+    botKey: getOrThrow("BOT_KEY"),
   },
   bot: {
     available_salutations: getKeyLengths(en, "bot.hello.*"),
@@ -54,6 +63,14 @@ export const config: Configuration = {
     key: process.env.HTTPS_KEY_NAME,
   },
   translations: {
-    translationAPIURL: getOrThrow(process.env, "TRANSLATE_API_URL"),
+    translationAPIURL: getOrThrow("TRANSLATE_API_URL"),
+  },
+  redis: {
+    host: process.env.REDIS_HOST ?? "localhost",
+    port: Number(process.env.REDIS_PORT) ?? 6379,
+    ttl: Number(process.env.REDIS_DEFAULT_TTL) ?? 5,
+  },
+  giphy: {
+    apiKey: getOrThrow("GIPHY_API_KEY"),
   },
 };
