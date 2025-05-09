@@ -11,3 +11,15 @@ export async function translateGiphy(text: string) {
   );
   return gifResponse.data?.data;
 }
+
+export async function randomGif(tags: string) {
+  const gifResponse = await giphyApi<{ data: GifData; meta: unknown }>(
+    "v1/gifs/random",
+    {
+      params: {
+        tag: tags,
+      },
+    },
+  );
+  return gifResponse.data?.data;
+}

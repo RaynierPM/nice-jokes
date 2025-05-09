@@ -13,7 +13,7 @@ import { BotResponses } from "../common/responses/bot/defaults";
 import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedError";
 import { updateBotMessage } from "../discord/commons/updateBotMessage";
 import { RedisManager } from "../redis";
-import { translateGiphy } from "../thirdParty/giphy";
+import { randomGif, translateGiphy } from "../thirdParty/giphy";
 
 export class InteractionsController
   implements Controller<InteractionsController>
@@ -83,7 +83,7 @@ export class InteractionsController
           data: { content: joke.setup },
           components: [],
         });
-        const gif = await translateGiphy(joke.setup);
+        const gif = await randomGif(this.getRandomGifTag());
         BotResponses.punchLine(res, joke.punchline, gif);
       } else {
         BotResponses.alzheimer(res);
@@ -158,5 +158,13 @@ export class InteractionsController
       { messageId: interaction.message.id as string, token: interaction.token },
       newMessage,
     ).catch(console.log);
+  }
+
+  private readonly gitTags: string[] = ["Laughs", "jokes", "funny"];
+
+  private getRandomGifTag(): string {
+    return this.gitTags[
+      Math.max(0, Math.ceil(Math.random() * this.gitTags.length - 1))
+    ];
   }
 }

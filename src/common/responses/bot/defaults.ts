@@ -75,9 +75,6 @@ export abstract class BotResponses {
         components,
       },
     };
-
-    console.log(components);
-    console.log(items);
     res.json(response);
   }
 
