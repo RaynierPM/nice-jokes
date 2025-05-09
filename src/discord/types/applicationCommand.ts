@@ -81,3 +81,8 @@ export type DiscordInteractionCommand = DiscordInteractionBase & {
 export type DiscordInteraction =
   | DiscordInteractionMessage
   | DiscordInteractionCommand;
+
+export type GalleryItem = {
+  media: { url: string; width?: string; height?: string };
+  description?: string;
+};

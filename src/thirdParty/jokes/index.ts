@@ -1,6 +1,6 @@
-import { isEnglishLocale } from "../common/utils/isEnglishLocal";
-import { config } from "../config/configuration";
-import { getTranslatedText } from "../translate";
+import { isEnglishLocale } from "../../common/utils/isEnglishLocal";
+import { config } from "../../config/configuration";
+import { getTranslatedText } from "../../translate";
 import { jokeApi } from "./api";
 
 export async function getRandomJoke(lang: string = "en") {
@@ -14,10 +14,9 @@ export async function getRandomJoke(lang: string = "en") {
 }
 
 export async function translateJoke(joke: Joke, lang: string): Promise<Joke> {
-  if (config.translations.isAvailable || isEnglishLocale(lang)) {
+  if (!config.translations.isAvailable || isEnglishLocale(lang)) {
     return joke;
   }
-  console.log();
   joke.setup = await getTranslatedText({ text: joke.setup, lang });
   joke.punchline = await getTranslatedText({ text: joke.punchline, lang });
 

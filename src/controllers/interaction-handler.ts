@@ -8,11 +8,12 @@ import {
 } from "../discord/types/applicationCommand";
 import { availableComands } from "../discord/commands/availableCommands.enum";
 import { RandomAnswers } from "../common/utils/randomAnswers";
-import { getRandomJoke } from "../jokes";
+import { getRandomJoke } from "../thirdParty/jokes";
 import { BotResponses } from "../common/responses/bot/defaults";
 import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedError";
 import { updateBotMessage } from "../discord/commons/updateBotMessage";
 import { RedisManager } from "../redis";
+import { translateGiphy } from "../thirdParty/giphy";
 
 export class InteractionsController
   implements Controller<InteractionsController>
@@ -82,7 +83,8 @@ export class InteractionsController
           data: { content: joke.setup },
           components: [],
         });
-        BotResponses.punchLine(res, joke.punchline);
+        const gif = await translateGiphy(joke.setup);
+        BotResponses.punchLine(res, joke.punchline, gif);
       } else {
         BotResponses.alzheimer(res);
       }
