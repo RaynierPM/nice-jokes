@@ -1,0 +1,16 @@
+name: linter-and-prettier
+run-name: Push/PR created by @${{ github.actor }}
+on: [push, pull_request]
+jobs:
+  code-integrity-verification:
+    name: Code integrity verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check code style
+        run: npm run format:check
+
+      - name: Check code rules
+        run: npm run lint:check
