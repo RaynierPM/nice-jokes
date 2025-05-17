@@ -13,7 +13,7 @@ import { BotResponses } from "../common/responses/bot/defaults";
 import { DiscordUnexpectedError } from "../errors/discord/discordUnexpectedError";
 import { updateBotMessage } from "../discord/commons/updateBotMessage";
 import { RedisManager } from "../redis";
-import { randomGif, translateGiphy } from "../thirdParty/giphy";
+import { randomGif } from "../thirdParty/giphy";
 
 export class InteractionsController
   implements Controller<InteractionsController>
@@ -53,11 +53,12 @@ export class InteractionsController
           },
         });
         break;
-      case availableComands.JOKE:
+      case availableComands.JOKE: {
         const joke = await getRandomJoke("en");
         await this.savePendingJoke({ joke, interaction });
         BotResponses.joke(res, { interaction, joke });
         break;
+      }
       case availableComands.WAKE_UP:
         await this.handleWakeUp(interaction, res);
         break;

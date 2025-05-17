@@ -1,4 +1,3 @@
-import { InteractionType } from "discord-interactions";
 import { availableComands } from "./availableCommands.enum";
 import { config } from "../../config/configuration";
 import { CommandTypes } from "../commons/CommandsTypes.enum";

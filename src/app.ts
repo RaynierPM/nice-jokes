@@ -14,7 +14,9 @@ import { RedisManager } from "./redis";
 const app = express();
 
 app.use(raw());
-app.use(morgan(config.app.env !== "prod" ? "dev" : "combined"));
+app.use(
+  morgan(config.app.env?.toLocaleLowerCase() !== "prod" ? "dev" : "combined"),
+);
 
 app.use(t.init);
 

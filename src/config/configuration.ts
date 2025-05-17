@@ -67,8 +67,8 @@ export const config: Configuration = {
   },
   redis: {
     host: process.env.REDIS_HOST ?? "localhost",
-    port: Number(process.env.REDIS_PORT) ?? 6379,
-    ttl: Number(process.env.REDIS_DEFAULT_TTL) ?? 5,
+    port: Number(process.env.REDIS_PORT) || 6379,
+    ttl: Number(process.env.REDIS_DEFAULT_TTL) || 5,
   },
   giphy: {
     apiKey: getOrThrow("GIPHY_API_KEY"),

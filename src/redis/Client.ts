@@ -41,7 +41,7 @@ export class RedisClient implements RedisClientInterface {
         console.log("Error connecting with redis", err);
       })
       .connect()
-      .then((e) => {
+      .then(() => {
         console.log("Redis instance connected!");
       });
   }
