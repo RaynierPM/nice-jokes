@@ -5,7 +5,7 @@ import { getKeyLengths } from "../common/utils/keyLengths";
 import path from "path";
 
 dotenv.config({
-  path: path.join(process.cwd(), process.env.ENVFILE || ""),
+  path: path.join(process.cwd(), process.env.ENVFILE || __dirname + "/.env"),
 });
 
 type Configuration = {
@@ -46,7 +46,7 @@ export const config: Configuration = {
   app: {
     env: process.env.ENV || "local",
     port: Number(process.env.PORT) || 3000,
-    https: Boolean(Number(process.env.HTTPS)),
+    https: Boolean(Number(process.env.HTTPS?.[0])),
   },
   discord: {
     appId: getOrThrow("APP_ID"),
