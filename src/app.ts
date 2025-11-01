@@ -34,10 +34,12 @@ fetch(config.translations.translationAPIURL)
 
 RedisManager.init();
 
-if (config.app.https && config.https.cert && config.https.key) {
+if (config.app.https && config.https.fullChain && config.https.key) {
   const options = {
     key: readFileSync(path.join(process.cwd(), ".ssl/", config.https.key)),
-    cert: readFileSync(path.join(process.cwd(), ".ssl/", config.https.cert)),
+    cert: readFileSync(
+      path.join(process.cwd(), ".ssl/", config.https.fullChain),
+    ),
   };
   https.createServer(options, app).listen(config.app.port, () => {
     console.log("APP LISTENING PORT: " + config.app.port);

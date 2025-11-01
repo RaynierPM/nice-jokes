@@ -26,7 +26,7 @@ type Configuration = {
   };
   https: {
     key: string | undefined;
-    cert: string | undefined;
+    fullChain: string | undefined;
   };
   translations: {
     translationAPIURL: string;
@@ -59,7 +59,7 @@ export const config: Configuration = {
     available_idks: getKeyLengths(en, "bot.idk.*"),
   },
   https: {
-    cert: process.env.HTTPS_CERT_NAME,
+    fullChain: process.env.HTTPS_FULLCHAIN_NAME,
     key: process.env.HTTPS_KEY_NAME,
   },
   translations: {
