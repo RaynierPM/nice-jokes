@@ -44,6 +44,8 @@
     "typescript-eslint": "^8.29.1"
   },
   "dependencies": {
+    "@redis/client": "^5.12.1",
+    "@types/body-parser": "^1.19.6",
     "axios": "^1.8.4",
     "body-parser": "^2.2.0",
     "discord-interactions": "^4.1.1",

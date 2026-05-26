@@ -1,0 +1,12 @@
+[Unit]
+Description="Unit service to linux systems with systemd"
+
+[Service]
+Type=simple
+User=raynierpc
+WorkingDirectory={{PROJECT_PATH}}
+ExecStart={{NODE_PATH}} --env-file=.env {{PROJECT_PATH}}/dist/src/app.js
+Restart="on-failure"
+
+[Install]
+WantedBy="multi-user.target"
