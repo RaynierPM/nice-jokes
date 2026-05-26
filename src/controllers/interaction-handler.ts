@@ -15,9 +15,7 @@ import { updateBotMessage } from "../discord/commons/updateBotMessage";
 import { RedisManager } from "../redis";
 import { randomGif } from "../thirdParty/giphy";
 
-export class InteractionsController
-  implements Controller<InteractionsController>
-{
+export class InteractionsController implements Controller<InteractionsController> {
   private redisClient = RedisManager.getInstance().redisClient;
 
   async handleInteractions(req: Request, res: Response) {
